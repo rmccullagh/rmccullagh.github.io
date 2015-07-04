@@ -56,12 +56,13 @@
 	})(window);
 </script>
 <script>
+function __EMPTY() {}
+
+	function __CALL(c) {
+		typeof c === 'function' ? c() : __EMPTY();
+	};
 	objectFactory.getWithCallback("IS_THIS_REALLY_NECCESSARY", function(o) {
-		if(typeof o !== 'undefined') {
-			o.Response.Write("Hey");
-		} else {
-			throw new Error("Cannot resolve module 'IS_THIS_REALLY_NECCESSARY'");	
-		}
+		typeof o !== 'undefined' ? o.Response.Write("Hey") : __CALL(function(){ throw new Error("Cannot resolve module 'IS_THIS_REALLY_NECCESSARY'")});	
 	});
 </script>
 </div>
