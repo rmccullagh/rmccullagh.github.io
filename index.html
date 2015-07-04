@@ -7,12 +7,14 @@
 <body>
 <div class="DOM_EVENT_ENDPOINT_HANDLER">
 <script>
+function __EMPTY() {}
+function __CALL(c) { typeof c === 'function' ? c() : __EMPTY(); };
 	(function(globalObject) {
 		var IS_THIS_REALLY_NECCESSARY = (function() {
 			function IS_THIS_REALLY_NECCESSARY() {
-				if(!(this instanceof IS_THIS_REALLY_NECCESSARY)) {
-					return new IS_THIS_REALLY_NECCESSARY();
-				}
+				var ret;
+				(!(this instanceof IS_THIS_REALLY_NECCESSARY)) ? ret = new IS_THIS_REALLY_NECCESSARY() : ret = __EMPTY();
+				return ret;
 			};
 			IS_THIS_REALLY_NECCESSARY.prototype.toString = function() {
 				return "[object " + 
@@ -29,17 +31,8 @@
 		globalObject.objectFactory = {
 			modules : {},
 			get : function(name, cb) {
-				if(typeof this.modules[name] !== 'undefined') {
-					if(typeof cb === 'function') 
-						cb(this.modules[name]);
-					else
-						return this.modules[name];
-				} else {
-					if(typeof cb === 'function') 
-						cb(undefined);	
-					else
-						return undefined;
-				}
+				return typeof this.modules[name] !== 'undefined' ? typeof cb === 'function' ? cb(this.modules[name]) : this.modules[name]
+				: typeof cb === 'function' ? cb(undefined) : undefined;
 			},
 			getWithCallback: function(name, cb) {
 				return this.get(name, cb);
@@ -56,14 +49,9 @@
 	})(window);
 </script>
 <script>
-function __EMPTY() {}
-
-	function __CALL(c) {
-		typeof c === 'function' ? c() : __EMPTY();
-	};
-	objectFactory.getWithCallback("IS_THIS_REALLY_NECCESSARY", function(o) {
-		typeof o !== 'undefined' ? o.Response.Write("Hey") : __CALL(function(){ throw new Error("Cannot resolve module 'IS_THIS_REALLY_NECCESSARY'")});	
-	});
+objectFactory.getWithCallback("IS_THIS_REALLY_NECCESSARY", function(o) {
+	typeof o !== 'undefined' ? o.Response.Write("Hey") : __CALL(function(){ throw new Error("Cannot resolve module 'IS_THIS_REALLY_NECCESSARY'")});	
+});
 </script>
 </div>
 </body>
