@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="utf-8">
+</head>
+<body>
+<div class="DOM_EVENT_ENDPOINT_HANDLER">
+<script>
+	(function(globalObject) {
+		var IS_THIS_REALLY_NECCESSARY = (function() {
+			function IS_THIS_REALLY_NECCESSARY() {
+				if(!(this instanceof IS_THIS_REALLY_NECCESSARY)) {
+					return new IS_THIS_REALLY_NECCESSARY();
+				}
+			};
+			IS_THIS_REALLY_NECCESSARY.prototype.toString = function() {
+				return "[object " + 
+					(this.constructor.name !== undefined ? this.constructor.name : 'IS_THIS_REALLY_NECCESSARY') 
+					+ ']';
+			};
+			IS_THIS_REALLY_NECCESSARY.prototype.Response = {
+				Write: function(arg) {
+					document.write(arg);
+				}
+			};
+			return IS_THIS_REALLY_NECCESSARY();
+		})();
+		globalObject.objectFactory = {
+			modules : {},
+			get : function(name, cb) {
+				if(typeof this.modules[name] !== 'undefined') {
+					if(typeof cb === 'function') 
+						cb(this.modules[name]);
+					else
+						return this.modules[name];
+				} else {
+					if(typeof cb === 'function') 
+						cb(undefined);	
+					else
+						return undefined;
+				}
+			},
+			getWithCallback: function(name, cb) {
+				return this.get(name, cb);
+			},
+			set : function(name, obj) {
+				this.modules[name] = obj;
+      			}
+		};
+		function EXPORT_OBJECT(name, o) {
+			globalObject[name] = o;
+		}	
+		globalObject.objectFactory.set("IS_THIS_REALLY_NECCESSARY", IS_THIS_REALLY_NECCESSARY);
+		EXPORT_OBJECT("objectFactory", objectFactory);
+	})(window);
+</script>
+<script>
+	objectFactory.getWithCallback("IS_THIS_REALLY_NECCESSARY", function(o) {
+		if(typeof o !== 'undefined') {
+			o.Response.Write("Hey");
+		} else {
+			throw new Error("Cannot resolve module 'IS_THIS_REALLY_NECCESSARY'");	
+		}
+	});
+</script>
+</div>
+</body>
