@@ -12,9 +12,8 @@ function __CALL(c) { typeof c === 'function' ? c() : __EMPTY(); };
 	(function(globalObject) {
 		var IS_THIS_REALLY_NECCESSARY = (function() {
 			function IS_THIS_REALLY_NECCESSARY() {
-				var ret;
-				(!(this instanceof IS_THIS_REALLY_NECCESSARY)) ? ret = new IS_THIS_REALLY_NECCESSARY() : ret = __EMPTY();
-				return ret;
+				return !(this instanceof IS_THIS_REALLY_NECCESSARY) ? 
+					new IS_THIS_REALLY_NECCESSARY() : ret = __EMPTY();
 			};
 			IS_THIS_REALLY_NECCESSARY.prototype.toString = function() {
 				return "[object " + 
